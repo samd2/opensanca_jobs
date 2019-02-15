@@ -4,7 +4,8 @@ LABEL maintainer="opensanca@opensanca.com"
 
 ARG rails_env="development"
 ARG build_without=""
-ARG secret_key_base=""
+
+ENV SECRET_KEY_BASE=dumb
 
 RUN apk update \
   && apk add \
@@ -20,7 +21,7 @@ RUN apk update \
   && tar -xf latest.tar.gz -C /opt/yarn --strip 1 \
   && mkdir -p /var/app
 
-ENV PATH="$PATH:/opt/yarn/bin" BUNDLE_PATH="/gems" BUNDLE_JOBS=2 RAILS_ENV=${rails_env} BUNDLE_WITHOUT=${bundle_without} SECRET_KEY_BASE=$secret_key_base}
+ENV PATH="$PATH:/opt/yarn/bin" BUNDLE_PATH="/gems" BUNDLE_JOBS=2 RAILS_ENV=${rails_env} BUNDLE_WITHOUT=${bundle_without}
 
 COPY . /var/app
 WORKDIR /var/app
